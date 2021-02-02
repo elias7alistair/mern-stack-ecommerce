@@ -24,6 +24,7 @@ const importData = async () => {
         const sampleProducts = products.map ( product => {
             return {...product, user: adminUser}
         })
+        console.log(sampleProducts)
         await Product.insertMany(sampleProducts)
         console.log('data imported')
         process.exit()
