@@ -57,16 +57,16 @@ const orderSchema = mongoose.Schema(
       defualt: false,
     },
     paidAt: {
-     type: Date
+      type: Date,
     },
     isDeliverd: {
       type: Boolean,
       required: true,
-      defualt: false
+      defualt: false,
     },
     deliverdAt: {
-        type: Date
-       },
+      type: Date,
+    },
   },
   {
     timestamps: true,
