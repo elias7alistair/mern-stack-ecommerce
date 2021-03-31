@@ -53,7 +53,7 @@ const orderSchema = mongoose.Schema(
     },
     isPaid: {
       type: Boolean,
-      required: true,
+     
       defualt: false,
     },
     paidAt: {
@@ -61,7 +61,7 @@ const orderSchema = mongoose.Schema(
     },
     isDeliverd: {
       type: Boolean,
-      required: true,
+     
       defualt: false,
     },
     deliverdAt: {

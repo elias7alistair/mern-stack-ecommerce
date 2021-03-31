@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Image, ListGroup, Col, Row, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../component/CheckoutSteps";
 import Message from "../component/Message";
+import { createOrder } from "../actions/orderActions";
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
   const { shippingAddress, cartItems, paymentMethod } = useSelector(
     (state) => state.cart
   );
-  console.log(shippingAddress);
+
+  const dispatch = useDispatch();
 
   // Calculate
 
@@ -27,7 +29,29 @@ const PlaceOrderScreen = () => {
   const totalPrice =
     Number(itemsPrice) + Number(shippingPrice) + Number(taxPrice);
 
-  const placeOrderHandler = () => {};
+  const orderCreate = useSelector((state) => state.orderCreate);
+
+  const { success, error, order } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [success, history]);
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        paymentMethod: paymentMethod,
+        itemsPrice: itemsPrice,
+        shippingPrice: shippingPrice,
+        taxPrice: taxPrice,
+        totalPrice: totalPrice,
+      })
+    );
+  };
 
   return (
     <>
@@ -112,6 +136,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant={"danger"}>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
