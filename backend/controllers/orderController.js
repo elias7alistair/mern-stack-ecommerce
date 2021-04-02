@@ -2,10 +2,26 @@ import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
 
+//desc fetch order byid
+//route GET /api/order/:id
+//@access Public
+
+const addOrderById = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+  }
+});
+
 //desc fetch order
 //route GET /api/order/
 //@access Public
-
 
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
@@ -35,10 +51,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await order.save();
-    console.log(createdOrder)
+
     //201 for when something is created
     res.status(201).json(createdOrder);
   }
 });
 
-export { addOrderItems}
+export { addOrderItems, addOrderById };
