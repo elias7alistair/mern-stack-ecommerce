@@ -26,8 +26,11 @@ const PlaceOrderScreen = ({ history }) => {
 
   const shippingPrice = itemsPrice > 100 ? 0 : 100;
   const taxPrice = addDecimals(Number(0.15 * itemsPrice.toFixed(2)));
-  const totalPrice =
-    Number(itemsPrice) + Number(shippingPrice) + Number(taxPrice);
+  const totalPrice = (
+    Number(itemsPrice) +
+    Number(shippingPrice) +
+    Number(taxPrice)
+  ).toFixed(0);
 
   const orderCreate = useSelector((state) => state.orderCreate);
 
