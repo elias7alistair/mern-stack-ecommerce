@@ -2,6 +2,16 @@ import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import asyncHandler from "express-async-handler";
 
+//desc Get user Orders
+//route GET /api/myorders
+//@access Public
+
+const getMyOrders = asyncHandler(async (req, res) => {
+  
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
+
 //desc Update order to paid
 //route GET /api/order/:id
 //@access Public
@@ -20,7 +30,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedOrder = await order.save();
-    res.json(updatedOrder)
+    res.json(updatedOrder);
   } else {
     res.status(404);
   }
@@ -81,4 +91,4 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, addOrderById, updateOrderToPaid };
+export { addOrderItems, addOrderById, updateOrderToPaid, getMyOrders };

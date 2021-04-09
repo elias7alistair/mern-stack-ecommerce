@@ -39,9 +39,7 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      console.log("this3");
       const { data: clientId } = await axios.get("/api/config/paypal");
-      console.log("this4");
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -51,7 +49,6 @@ const OrderScreen = ({ match }) => {
       };
       document.body.appendChild(script);
     };
-    console.log(order);
     if (!order || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
@@ -64,39 +61,14 @@ const OrderScreen = ({ match }) => {
     }
   }, [dispatch, orderId, successPay, order]);
 
-  // useEffect(() => {
-  //   const addPayPalScript = async () => {
-  //     const { data: clientId } = await axios.get("/api/config/paypal");
-  //     const script = document.createElement("script");
-  //     script.type = "text/javascript";
-  //     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-  //     script.async = true;
-  //     script.onload = () => {
-  //       setSdkReady(true);
-  //     };
-  //     document.body.appendChild(script);
-  //   };
-
-  //   if (!order || successPay) {
-  //     dispatch({ type: ORDER_PAY_RESET });
-  //     // dispatch(getOrderDetails(orderId));
-  //   } else if (!order.isPaid) {
-  //     if (!window.paypal) {
-  //       addPayPalScript();
-  //     } else {
-  //       setSdkReady(true);
-  //     }
-  //   }
-  // }, [dispatch, orderId, successPay, order]);
-
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
   return loading ? (
-    // <Loader />
-    <h2>bbbb</h2>
+     <Loader />
+
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
