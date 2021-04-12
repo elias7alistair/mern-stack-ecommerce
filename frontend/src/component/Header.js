@@ -10,8 +10,7 @@ const Header = () => {
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
   const logoutHandler = () => {
-
-    dispatch(logout())
+    dispatch(logout());
   };
 
   return (
@@ -44,6 +43,16 @@ const Header = () => {
                     <i className='fas fa-user-ninja'></i>Sign In
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin Menu' id='adminMenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users list</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Product List</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

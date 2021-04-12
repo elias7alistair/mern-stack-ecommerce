@@ -58,6 +58,19 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+//desc get user
+//route GET /api/users/
+//@access private
+
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+//desc put user profile
+//route put /api/users/profile
+//@access private
+
 //desc get user profile
 //route GET /api/users/profile
 //@access private
@@ -101,11 +114,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
-
   } else {
     res.status(404);
     throw new Error("User not found");
   }
 });
 
-export { authUser, getUserProfile, registerUser,updateUserProfile };
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };
