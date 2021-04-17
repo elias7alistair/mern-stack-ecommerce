@@ -14,6 +14,7 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import UserListScreen from "./screens/UserScreen";
+import UserEditScreen from "./screens/UserEditScreen";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/login' component={LoginScreen} exact />
           <Route path='/register' component={RegisterScreen} exact />
           <Route path='/profile' component={ProfileScreen} exact />
+          <Route path='/admin/user/:id/edit' component={UserEditScreen} exact />
           <Route path='/admin/userlist' component={UserListScreen} exact />
           <Route path='/product/:id' component={ProductScreen} exact />
           <Route path='/cart/:id?' component={CartScreen} exact />
